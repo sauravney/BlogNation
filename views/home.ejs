@@ -1,0 +1,70 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Homepage</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-3">
+      <div class="row row-cols-4">
+        <% blogs.forEach(blog => { %>
+        <div class="col">
+          <div class="card col" style="width: 18rem">
+            <img src="<%= blog.coverImageURL %>" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>BlogNation</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-3">
+      <% console.log(locals.user); %>
+
+      <% if (locals.user) { %>
+      <div class="alert alert-success" role="alert">
+        Welcome back, <%= locals.user.fullName %>!
+      </div>
+      <% } %>
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <% if (blogs.length > 0) { %>
+          <% blogs.forEach(blog => { %>
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+              <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="Blog Cover Image" />
+              <div class="card-body">
+                <h5 class="card-title"><%= blog.title %></h5>
+                <p class="card-text">
+                  <%= blog.excerpt || (blog.content && blog.content.length > 0 ? blog.content.substring(0, 100) + '...' : '') %>
+                </p>
+                <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        <% } else { %>
+          <div class="col">
+            <p class="text-muted">No blogs available. Be the first to add one!</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
